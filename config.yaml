@@ -96,3 +96,22 @@ params:
     # option to specify your instagram username in the footer; **uncomment** the below line to show in footer
     # instagram: username
     # option to specify the copyright in the footer
+
+
+deployment:
+  order:
+    - .jpg$
+    - .gif$
+  targets:
+    - name: mydeployment
+      URL: 's3://jere.mykle.in?region=us-east-1'
+  matchers:
+    - pattern: ^.+\.(js|css|svg|ttf)$
+      cacheControl: 'max-age=630720000, no-transform, public'
+      gzip: true
+    - pattern: ^.+\.(png|jpg)$
+      cacheControl: 'max-age=630720000, no-transform, public'
+      gzip: false
+    - pattern: ^.+\.(html|xml|json)$
+      gzip: true
+
